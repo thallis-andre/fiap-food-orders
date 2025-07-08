@@ -121,8 +121,8 @@ graph TD
 
 ```bash
 # Clonar o repositório
-git clone https://github.com/thallis-andre/fiap-soat10-orders.git
-cd fiap-soat10-orders
+git clone https://github.com/thallis-andre/fiap-food-orders.git
+cd fiap-food-orders
 
 # Instalar dependências
 npm install
