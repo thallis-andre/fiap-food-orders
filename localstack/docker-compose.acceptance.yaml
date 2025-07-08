@@ -1,0 +1,114 @@
+services:
+  fiap-food-orders:
+    image: gm50x/fiap-food-orders:latest
+    build:
+      context: ..
+      args:
+        target: 'fiap-food-orders'
+    restart: 'on-failure'
+    environment:
+      NODE_ENV: 'development'
+      APP_NAME: 'FiapFoodOrder'
+      APP_DESCRIPTION: 'Payments Component for Fiap Food'
+      APP_VERSION: '1.0.0'
+      PORT: '3000'
+      LOG_LEVEL: 'debug'
+      LOG_FORMAT: 'pretty' # pretty | json
+      TRAFFIC_INSPECTION_HTTP: 'all' # inbound|outbound|all|none
+      TRAFFIC_INSPECTION_AMQP: 'all' # inbound|outbound|all|none
+      ROUTE_PREFIX: ''
+      MONGO_URL: 'mongodb://fiapfood:fiapfood@mongodb:27017/FiapFoodOrder?authSource=admin'
+      AMQP_URL: 'amqp://fiapfood:fiapfood@rabbitmq:5672'
+      BASE_URL_PAYMENT_SERVICE: 'http://fiap-food-payments:4000'
+      BASE_URL_PREPARATION_SERVICE: 'http://fiap-food-preparation:5000'
+    command: sh -c "sleep 10 && npm run start:prod"
+    ports:
+      - 3000:3000
+    depends_on:
+      - mongodb
+      - rabbitmq
+      - fiap-food-payments
+      - fiap-food-preparation
+  fiap-food-payments:
+    image: gm50x/fiap-food-payments:latest
+    restart: 'on-failure'
+    environment:
+      NODE_ENV: 'development'
+      APP_NAME: 'FiapFoodPayments'
+      APP_DESCRIPTION: 'Payments Component for Fiap Food'
+      APP_VERSION: '1.0.0'
+      PORT: '4000'
+      LOG_LEVEL: 'debug'
+      LOG_FORMAT: 'pretty' # pretty | json
+      TRAFFIC_INSPECTION_HTTP: 'all' # inbound|outbound|all|none
+      TRAFFIC_INSPECTION_AMQP: 'all' # inbound|outbound|all|none
+      ROUTE_PREFIX: ''
+      MONGO_URL: 'mongodb://fiapfood:fiapfood@mongodb:27017/FiapFoodPayments?authSource=admin'
+      AMQP_URL: 'amqp://fiapfood:fiapfood@rabbitmq:5672'
+    command: sh -c "sleep 10 && npm run start:prod"
+    ports:
+      - 4000:4000
+    depends_on: [mongodb, rabbitmq]
+  fiap-food-preparation:
+    image: gm50x/fiap-food-preparation:latest
+    restart: 'on-failure'
+    environment:
+      NODE_ENV: 'development'
+      APP_NAME: 'FiapFoodPreparation'
+      APP_DESCRIPTION: 'Payments Component for Fiap Food'
+      APP_VERSION: '1.0.0'
+      PORT: '5000'
+      LOG_LEVEL: 'debug'
+      LOG_FORMAT: 'pretty' # pretty | json
+      TRAFFIC_INSPECTION_HTTP: 'all' # inbound|outbound|all|none
+      TRAFFIC_INSPECTION_AMQP: 'all' # inbound|outbound|all|none
+      ROUTE_PREFIX: ''
+      POSTGRES_URL: 'postgresql://postgres:fiapfood@postgres:5432/postgres?ApplicationName=FiapFoodPreparation'
+      AMQP_URL: 'amqp://fiapfood:fiapfood@rabbitmq:5672'
+    command: sh -c "sleep 10 && npm run start:prod"
+    ports:
+      - 5000:5000
+    depends_on: [postgres, rabbitmq]
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_PASSWORD: fiapfood
+    ports:
+      - 5432:5432
+  mongodb:
+    image: fiapfood/mongodbrs:6
+    build:
+      context: .
+      dockerfile: ./Dockerfile.mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: 'fiapfood'
+      MONGO_INITDB_ROOT_PASSWORD: 'fiapfood'
+    command: 'mongod --replSet rs0 --keyFile /opt/.keyfile/keyfile --bind_ip_all'
+    ports:
+      - 27017:27017
+  mongodb_init:
+    image: mongo:6
+    restart: 'on-failure'
+    depends_on: [mongodb]
+    command: >-
+      sh -c "sleep 10 && mongosh -u fiapfood -p fiapfood --host mongodb:27017 --eval 'rs.initiate({
+        \"_id\":\"rs0\",
+        "members":[
+          {
+            \"_id\": 0,
+            \"host\":\"mongodb:27017\",
+          },
+        ]
+      })' && if [ $(mongosh -u fiapfood -p fiapfood --quiet --host mongodb:27017 --eval 'rs.status().ok') -eq 1 ]; then exit 0; else exit 1; fi"
+  rabbitmq:
+    image: fiapfood/rabbitmq:3-management-delayed
+    build:
+      context: .
+      dockerfile: ./Dockerfile.rabbitmq
+    # hostname: rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: 'fiapfood'
+      RABBITMQ_DEFAULT_PASS: 'fiapfood'
+    ports:
+      - 5672:5672
+      - 15672:15672

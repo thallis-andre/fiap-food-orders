@@ -1,0 +1,59 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ES2021",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@fiap-food/setup": [
+        "libs/setup/src"
+      ],
+      "@fiap-food/setup/*": [
+        "libs/setup/src/*"
+      ],
+      "@fiap-food/tactical-design": [
+        "libs/tactical-design/src"
+      ],
+      "@fiap-food/tactical-design/*": [
+        "libs/tactical-design/src/*"
+      ],
+      "@fiap-food/test-factory": [
+        "test/libs/test-factory/src"
+      ],
+      "@fiap-food/test-factory/*": [
+        "test/libs/test-factory/src/*"
+      ],
+      "@fiap-food/acceptance-factory": [
+        "test/libs/acceptance-factory/src"
+      ],
+      "@fiap-food/acceptance-factory/*": [
+        "test/libs/acceptance-factory/src/*"
+      ],
+      "@fiap-food/amqp": [
+        "libs/amqp/src"
+      ],
+      "@fiap-food/amqp/*": [
+        "libs/amqp/src/*"
+      ],
+      "@fiap-food/external-providers": [
+        "libs/external-providers/src"
+      ],
+      "@fiap-food/external-providers/*": [
+        "libs/external-providers/src/*"
+      ]
+    }
+  }
+}

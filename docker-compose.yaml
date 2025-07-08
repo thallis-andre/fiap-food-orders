@@ -1,0 +1,41 @@
+services:
+  mongodb:
+    image: fiapfood/mongodbrs:6
+    build:
+      context: ./localstack
+      dockerfile: ./Dockerfile.mongodb
+    container_name: fiapfood-mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: 'fiapfood'
+      MONGO_INITDB_ROOT_PASSWORD: 'fiapfood'
+    command: 'mongod --replSet rs0 --keyFile /opt/.keyfile/keyfile --bind_ip_all'
+    ports:
+      - 27017:27017
+  mongodb_init:
+    image: mongo:6
+    container_name: fiapfood-mongodb-init
+    restart: 'on-failure'
+    depends_on: [mongodb]
+    command: >-
+      sh -c "sleep 10 && mongosh -u fiapfood -p fiapfood --host mongodb:27017 --eval 'rs.initiate({
+        \"_id\":\"rs0\",
+        "members":[
+          {
+            \"_id\": 0,
+            \"host\":\"localhost:27017\",
+          }
+        ]
+      })' && if [ $(mongosh -u fiapfood -p fiapfood --quiet --host mongodb:27017 --eval 'rs.status().ok') -eq 1 ]; then exit 0; else exit 1; fi"
+  rabbitmq:
+    image: fiapfood/rabbitmq:3-management-delayed
+    build:
+      context: ./localstack
+      dockerfile: ./Dockerfile.rabbitmq
+    container_name: fiapfood-rabbitmq
+    hostname: rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: 'fiapfood'
+      RABBITMQ_DEFAULT_PASS: 'fiapfood'
+    ports:
+      - 5672:5672
+      - 15672:15672
