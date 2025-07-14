@@ -1,7 +1,7 @@
 import { AmqpService } from '@fiap-food/amqp';
+import { toDottedNotation } from '@fiap-food/tactical-design/amqp';
+import { AggregateEvent } from '@fiap-food/tactical-design/core';
 import { destroyTestApp } from '@fiap-food/test-factory/utils';
-import { toDottedNotation } from '@fiap-foodactical-design/amqp';
-import { AggregateEvent } from '@fiap-foodactical-design/core';
 import { INestApplication } from '@nestjs/common';
 import { randomUUID } from 'crypto';
 import { Types } from 'mongoose';
