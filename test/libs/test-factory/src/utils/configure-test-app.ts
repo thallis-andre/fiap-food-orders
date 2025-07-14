@@ -1,15 +1,15 @@
 import {
-    configureCORS,
-    configureCompression,
-    configureContextWrappers,
-    configureExceptionHandler,
-    configureHelmet,
-    configureHttpInspectorInbound,
-    configureLogger,
-    configureOpenAPI,
-    configureRoutePrefix,
-    configureValidation,
-    configureVersioning,
+  configureCORS,
+  configureCompression,
+  configureContextWrappers,
+  configureExceptionHandler,
+  configureHelmet,
+  configureHttpInspectorInbound,
+  configureLogger,
+  configureOpenAPI,
+  configureRoutePrefix,
+  configureValidation,
+  configureVersioning,
 } from '@fiap-food/setup';
 import { INestApplication, Type } from '@nestjs/common';
 import { getConnectionToken } from '@nestjs/mongoose';

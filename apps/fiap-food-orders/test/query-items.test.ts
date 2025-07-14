@@ -1,7 +1,7 @@
 import {
-    destroyTestApp,
-    items,
-    itemsTypes,
+  destroyTestApp,
+  items,
+  itemsTypes,
 } from '@fiap-food/test-factory/utils';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
