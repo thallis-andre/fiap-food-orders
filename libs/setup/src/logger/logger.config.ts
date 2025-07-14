@@ -1,8 +1,8 @@
 import { INestApplication, Logger } from '@nestjs/common';
 import {
-    WinstonModule,
-    WinstonModuleOptions,
-    utilities as nestWinstonUtils,
+  WinstonModule,
+  WinstonModuleOptions,
+  utilities as nestWinstonUtils,
 } from 'nest-winston';
 import { config, format, transports } from 'winston';
 import { MODULE_OPTIONS_TOKEN } from '../common/common.builder';

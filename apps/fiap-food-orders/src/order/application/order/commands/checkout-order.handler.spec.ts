@@ -1,10 +1,10 @@
 import {
-    DomainException,
-    TransactionManager,
+  DomainException,
+  TransactionManager,
 } from '@fiap-food/tactical-design/core';
 import {
-    FakeRepository,
-    FakeTransactionManager,
+  FakeRepository,
+  FakeTransactionManager,
 } from '@fiap-food/test-factory/utils';
 import { INestApplication, NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
@@ -12,8 +12,8 @@ import { randomUUID } from 'crypto';
 import { Item } from '../../../domain/item.entity';
 import { Order } from '../../../domain/order.aggregate';
 import {
-    EOrderStatus,
-    OrderStatus,
+  EOrderStatus,
+  OrderStatus,
 } from '../../../domain/values/order-status.value';
 import { FiapFoodPaymentService } from '../../../infra/external-services/fiap-food-payments.service';
 import { OrderRepository } from '../abstractions/order.repository';
@@ -29,13 +29,7 @@ describe('CheckoutOrderHandler', () => {
 
   const itemPrice = 19.9;
   const createItem = (id: string = randomUUID()) =>
-    new Item(
-      id,
-      'X-Food',
-      itemPrice,
-      'Snack',
-      'I would like to buy a hamfood',
-    );
+    new Item(id, 'X-Food', itemPrice, 'Snack', 'I would like to buy a hamfood');
 
   beforeAll(() => {
     jest.useFakeTimers();

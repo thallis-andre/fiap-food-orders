@@ -8,8 +8,8 @@ import { MongooseOrderSchema } from '../../../infra/persistance/mongoose/order/o
 import { OrderFollowUp } from '../dtos/follow-up.dto';
 import { FollowUpOrdersHandler } from './follow-up-orders.handler';
 import {
-    FollowUpOrdersQuery,
-    FollowUpOrdersResult,
+  FollowUpOrdersQuery,
+  FollowUpOrdersResult,
 } from './follow-up-orders.query';
 
 describe('FollowUpOrdersHandler', () => {

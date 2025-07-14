@@ -16,9 +16,9 @@ import { PreparationCompleted } from '../src/order/application/order/dtos/prepar
 import { PreparationStarted } from '../src/order/application/order/dtos/preparation-started.integration-event';
 import { EOrderStatus } from '../src/order/domain/values/order-status.value';
 import {
-    createMockService,
-    createTestApp,
-    destroyMockService,
+  createMockService,
+  createTestApp,
+  destroyMockService,
 } from './create-app';
 import { populateItems } from './create-items';
 import { fakeToken } from './mocks/mock.token';

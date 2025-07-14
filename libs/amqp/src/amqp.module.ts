@@ -1,8 +1,8 @@
 import { RabbitMQModule } from '@golevelup/nestjs-rabbitmq';
 import { Global, Module } from '@nestjs/common';
 import {
-    ConfigurableModuleClass,
-    MODULE_OPTIONS_TOKEN,
+  ConfigurableModuleClass,
+  MODULE_OPTIONS_TOKEN,
 } from './amqp.module-builder';
 import { AmqpHealthIndicatorService } from './services/amqp-health-indicator.service';
 import { AmqpInspectionService } from './services/amqp-inspection.service';

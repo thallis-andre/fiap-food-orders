@@ -1,6 +1,6 @@
 import {
-    AggregateMergeContext,
-    TransactionManager,
+  AggregateMergeContext,
+  TransactionManager,
 } from '@fiap-food/tactical-design/core';
 import { FakeMongooseModel } from '@fiap-foodest-factory/utils';
 import { INestApplication } from '@nestjs/common';

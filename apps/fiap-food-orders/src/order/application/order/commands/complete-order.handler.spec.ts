@@ -1,15 +1,15 @@
 import { TransactionManager } from '@fiap-food/tactical-design/core';
 import {
-    FakeRepository,
-    FakeTransactionManager,
+  FakeRepository,
+  FakeTransactionManager,
 } from '@fiap-foodest-factory/utils';
 import { INestApplication, NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { randomUUID } from 'crypto';
 import { Order } from '../../../domain/order.aggregate';
 import {
-    EOrderStatus,
-    OrderStatus,
+  EOrderStatus,
+  OrderStatus,
 } from '../../../domain/values/order-status.value';
 import { OrderRepository } from '../abstractions/order.repository';
 import { CompleteOrderCommand } from './complete-order.command';

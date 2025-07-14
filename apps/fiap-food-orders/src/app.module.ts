@@ -3,8 +3,8 @@ import { CommonModule, ContextModule, HealthzModule } from '@fiap-food/setup';
 import { AmqpTacticalDesignModule } from '@fiap-food/tactical-design/amqp';
 import { TacticalDesignModule } from '@fiap-food/tactical-design/core';
 import {
-    MongooseTacticalDesignModule,
-    MongooseTransactionalModule,
+  MongooseTacticalDesignModule,
+  MongooseTransactionalModule,
 } from '@fiap-food/tactical-design/mongoose';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';

@@ -10,14 +10,14 @@ import { FiapFoodPreparationService } from './external-services/fiap-food-prepar
 import { MongooseItemSchemaFactory } from './persistance/mongoose/item/item-schema.factory';
 import { MongooseItemRepository } from './persistance/mongoose/item/item.repository';
 import {
-    MongooseItemSchema,
-    MongooseItemSchemaModel,
+  MongooseItemSchema,
+  MongooseItemSchemaModel,
 } from './persistance/mongoose/item/item.schema';
 import { MongooseOrderSchemaFactory } from './persistance/mongoose/order/order-schema.factory';
 import { MongooseOrderRepository } from './persistance/mongoose/order/order.repository';
 import {
-    MongooseOrderSchema,
-    MongooseOrderSchemaModel,
+  MongooseOrderSchema,
+  MongooseOrderSchemaModel,
 } from './persistance/mongoose/order/order.schema';
 
 const MongooseSchemaModule = MongooseModule.forFeature([

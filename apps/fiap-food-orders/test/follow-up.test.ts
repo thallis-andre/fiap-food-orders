@@ -6,8 +6,8 @@ import { Model, Types } from 'mongoose';
 import * as request from 'supertest';
 import { App } from 'supertest/types';
 import {
-    EOrderStatus,
-    OrderStatusValues,
+  EOrderStatus,
+  OrderStatusValues,
 } from '../src/order/domain/values/order-status.value';
 import { MongooseOrderSchema } from '../src/order/infra/persistance/mongoose/order/order.schema';
 import { createTestApp } from './create-app';

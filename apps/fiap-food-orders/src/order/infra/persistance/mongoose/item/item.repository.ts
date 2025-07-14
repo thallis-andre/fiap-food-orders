@@ -1,6 +1,6 @@
 import {
-    AggregateMergeContext,
-    TransactionManager,
+  AggregateMergeContext,
+  TransactionManager,
 } from '@fiap-food/tactical-design/core';
 import { MongooseRepository } from '@fiap-food/tactical-design/mongoose';
 import { Injectable } from '@nestjs/common';
