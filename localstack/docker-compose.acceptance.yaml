@@ -1,6 +1,6 @@
 services:
   fiap-food-orders:
-    image: gm50x/fiap-food-orders:latest
+    image: ghcr.io/thallisandre/fiap-food-orders:latest
     build:
       context: ..
       args:
@@ -30,7 +30,7 @@ services:
       - fiap-food-payments
       - fiap-food-preparation
   fiap-food-payments:
-    image: gm50x/fiap-food-payments:latest
+    image: ghcr.io/thallisandre/fiap-food-payments:latest
     restart: 'on-failure'
     environment:
       NODE_ENV: 'development'
@@ -50,7 +50,7 @@ services:
       - 4000:4000
     depends_on: [mongodb, rabbitmq]
   fiap-food-preparation:
-    image: gm50x/fiap-food-preparation:latest
+    image: ghcr.io/thallisandre/fiap-food-preparation:latest
     restart: 'on-failure'
     environment:
       NODE_ENV: 'development'
@@ -76,7 +76,7 @@ services:
     ports:
       - 5432:5432
   mongodb:
-    image: fiapfood/mongodbrs:6
+    image: ghcr.io/thallisandre/mongodbrs:6
     build:
       context: .
       dockerfile: ./Dockerfile.mongodb
@@ -101,7 +101,7 @@ services:
         ]
       })' && if [ $(mongosh -u fiapfood -p fiapfood --quiet --host mongodb:27017 --eval 'rs.status().ok') -eq 1 ]; then exit 0; else exit 1; fi"
   rabbitmq:
-    image: fiapfood/rabbitmq:3-management-delayed
+    image: ghcr.io/thallisandre/rabbitmq:3-management-delayed
     build:
       context: .
       dockerfile: ./Dockerfile.rabbitmq
