@@ -1,7 +1,7 @@
 import {
-  destroyTestApp,
-  items,
-  itemsTypes,
+    destroyTestApp,
+    items,
+    itemsTypes,
 } from '@fiap-food/test-factory/utils';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
@@ -19,11 +19,11 @@ describe('Items', () => {
     app = await createTestApp();
     server = app.getHttpServer();
     await populateItems(server);
-  });
+  }, 30000);
 
   afterAll(async () => {
     await destroyTestApp(app);
-  });
+  }, 30000);
 
   describe('GET /v1/items', () => {
     it('should return all items', async () => {

@@ -11,7 +11,7 @@ export class OnPaymentApprovedRequestPreparationController {
   constructor(private readonly commandBus: CommandBus) {}
 
   @AmqpSubscription({
-    exchange: 'fiap.foodayments.events',
+    exchange: 'fiap.food.payments.events',
     routingKey: routingKeyOfEvent(PaymentApproved),
     queue: withPrefix(RequestOrderPreparationOnPaymentApprovedCommand.name),
   })

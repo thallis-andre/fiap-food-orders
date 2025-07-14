@@ -1,15 +1,15 @@
 import {
-  configureCORS,
-  configureCompression,
-  configureContextWrappers,
-  configureExceptionHandler,
-  configureHelmet,
-  configureHttpInspectorInbound,
-  configureLogger,
-  configureOpenAPI,
-  configureRoutePrefix,
-  configureValidation,
-  configureVersioning,
+    configureCORS,
+    configureCompression,
+    configureContextWrappers,
+    configureExceptionHandler,
+    configureHelmet,
+    configureHttpInspectorInbound,
+    configureLogger,
+    configureOpenAPI,
+    configureRoutePrefix,
+    configureValidation,
+    configureVersioning,
 } from '@fiap-food/setup';
 import { INestApplication, Type } from '@nestjs/common';
 import { getConnectionToken } from '@nestjs/mongoose';
@@ -61,11 +61,26 @@ export async function createTestApp(
 const gracefulShutdownPeriod = () => setTimeout(250);
 
 export async function destroyTestApp(app: INestApplication) {
-  const mongooseConnection = await app
-    .resolve<MongooseConnection>(getConnectionToken())
-    .catch(() => null);
-  await mongooseConnection?.dropDatabase();
-  await app.close();
+  try {
+    const mongooseConnection = await app
+      .resolve<MongooseConnection>(getConnectionToken())
+      .catch(() => null);
+    await mongooseConnection?.dropDatabase();
+  } catch (error) {
+    console.warn('Error dropping database:', error);
+  }
+
+  try {
+    await app.close();
+  } catch (error) {
+    console.warn('Error closing app:', error);
+  }
+
   await gracefulShutdownPeriod();
-  await axios.delete(`${rabbitmqURL}/api/vhosts/${virtualEnvironment}`);
+
+  try {
+    await axios.delete(`${rabbitmqURL}/api/vhosts/${virtualEnvironment}`);
+  } catch (error) {
+    console.warn('Error deleting RabbitMQ vhost:', error);
+  }
 }

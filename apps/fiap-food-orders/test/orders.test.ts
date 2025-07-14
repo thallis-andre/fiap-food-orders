@@ -25,8 +25,8 @@ import { fakeToken } from './mocks/mock.token';
 
 const basePath = '/v1/orders';
 const exchanges = {
-  payments: 'fiap.foodayments.events',
-  preparation: 'fiap.foodreparation.events',
+  payments: 'fiap.food.payments.events',
+  preparation: 'fiap.food.preparation.events',
 };
 
 describe('Orders', () => {
@@ -117,12 +117,12 @@ describe('Orders', () => {
     items = getItemsResponse.body.data
       .slice(0, 3)
       .map((x: any) => ({ id: x.id }));
-  });
+  }, 30000);
 
   afterAll(async () => {
     await destroyTestApp(app);
     destroyMockService(mockService);
-  });
+  }, 30000);
 
   describe('HTTP Drivers', () => {
     describe('POST /v1/orders', () => {

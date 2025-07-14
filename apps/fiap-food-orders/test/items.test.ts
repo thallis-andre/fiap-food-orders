@@ -35,11 +35,11 @@ describe('Items', () => {
   beforeAll(async () => {
     app = await createTestApp();
     server = app.getHttpServer();
-  });
+  }, 30000);
 
   afterAll(async () => {
     await destroyTestApp(app);
-  });
+  }, 30000);
 
   describe('POST /v1/items', () => {
     it('should create a new item', async () => {

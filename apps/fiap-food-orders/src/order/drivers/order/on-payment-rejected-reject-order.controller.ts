@@ -12,7 +12,7 @@ export class OnPaymentRejectedRejectOrderController {
   constructor(private readonly commandBus: CommandBus) {}
 
   @AmqpSubscription({
-    exchange: 'fiap.foodayments.events',
+    exchange: 'fiap.food.payments.events',
     routingKey: routingKeyOfEvent(PaymentRejected),
     queue: withPrefix(RejectOrderOnPaymentRejectedCommand.name),
   })

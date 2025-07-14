@@ -11,7 +11,7 @@ export class OnPreparationCompletedReadyOrderController {
   constructor(private readonly commandBus: CommandBus) {}
 
   @AmqpSubscription({
-    exchange: 'fiap.foodreparation.events',
+    exchange: 'fiap.food.preparation.events',
     routingKey: routingKeyOfEvent(PreparationCompleted),
     queue: withPrefix(ReadyOrderOnPreparationCompletedCommand.name),
   })

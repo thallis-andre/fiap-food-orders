@@ -1,6 +1,5 @@
 services:
   fiap-food-orders:
-    image: ghcr.io/thallis-andre/fiap-food-orders:latest
     build:
       context: ..
       args:
