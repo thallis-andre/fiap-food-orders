@@ -17,7 +17,7 @@ spec:
       automountServiceAccountToken: false
       containers:
         - name: fiap-food-orders-app
-          image: gm50x/fiap-food-orders:latest
+          image: ghcr.io/gm50x/fiap-food-orders:latest
           imagePullPolicy: Always
           envFrom:
             - secretRef:
