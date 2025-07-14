@@ -38,6 +38,7 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
+          mkdir -p target/sonar
           ./sonar-scanner/bin/sonar-scanner \
             -Dsonar.projectKey=thallis-andre_fiap-food-orders \
             -Dsonar.organization=fiap-soat10-f4 \
@@ -46,7 +47,7 @@ jobs:
             -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
             -Dsonar.javascript.lcov.reportPaths=coverage/unit/lcov.info \
             -Dsonar.qualitygate.wait=true \
-            -Dsonar.scanner.metadataFilePath=target/sonar/report-task.txt
+            -Dsonar.scanner.metadataFilePath="${{ github.workspace }}/target/sonar/report-task.txt"
       - name: Cria pasta target/sonar
         run: mkdir -p target/sonar
       - name: SonarQube Scan
