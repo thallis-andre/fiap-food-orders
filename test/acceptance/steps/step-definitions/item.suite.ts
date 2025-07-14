@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { And, Given, Suite, Then, When } from '@fiap-food/acceptance-factory';
 import { HttpService } from '@nestjs/axios';
-import { fakeToken } from 'apps/fiap-foodrders/test/mocks/mock.token';
+import { fakeToken } from 'apps/fiap-food-orders/test/mocks/mock.token';
 import { strict as assert } from 'assert';
 import { randomUUID } from 'crypto';
 

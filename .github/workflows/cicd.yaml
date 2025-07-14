@@ -1,4 +1,4 @@
-name: FiapFoodOrder - CICD
+name: FiapFoodOrders - CICD
 
 on:
   push:
@@ -38,7 +38,6 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          mkdir -p target/sonar
           ./sonar-scanner/bin/sonar-scanner \
             -Dsonar.projectKey=thallis-andre_fiap-food-orders \
             -Dsonar.organization=fiap-soat10-f4 \
@@ -113,8 +112,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20.9'
-      - name: Login no GHCR
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
       - name: Start Acceptance Tests Environment
         run: docker compose -f localstack/docker-compose.acceptance.yaml up -d
       - name: Install dependencies
