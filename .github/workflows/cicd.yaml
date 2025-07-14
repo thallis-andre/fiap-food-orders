@@ -118,6 +118,19 @@ jobs:
         run: npm install
       - name: 'Wait 30s'
         run: sleep 30
+      - name: Wait for Orders API
+        run: |
+          for i in {1..30}; do
+            if curl -s http://localhost:3000/healthz; then
+              echo "Orders API is up!"
+              exit 0
+            fi
+            echo "Waiting for Orders API..."
+            sleep 5
+          done
+          echo "Orders API did not start in time"
+          docker compose -f localstack/docker-compose.acceptance.yaml logs
+          exit 1
       - name: Run Tests
         run: npm run test:acceptance
       - name: Teardown
