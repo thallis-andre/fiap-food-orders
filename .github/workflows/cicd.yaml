@@ -43,7 +43,12 @@ jobs:
             -Dsonar.organization=fiap-soat10-f4 \
             -Dsonar.sources=. \
             -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
+            -Dsonar.javascript.lcov.reportPaths=coverage/unit/lcov.info \
+            -Dsonar.qualitygate.wait=true \
+            -Dsonar.scanner.metadataFilePath=target/sonar/report-task.txt
+      - name: Cria pasta target/sonar
+        run: mkdir -p target/sonar
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-quality-gate-action@master
         with:
