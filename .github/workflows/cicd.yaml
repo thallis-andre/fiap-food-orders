@@ -39,7 +39,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           ./sonar-scanner/bin/sonar-scanner \
-            -Dsonar.projectKey=fiap-food-orders \
+            -Dsonar.projectKey=thallis-andre_fiap-food-orders \
             -Dsonar.organization=fiap-soat10-f4 \
             -Dsonar.sources=. \
             -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
