@@ -19,13 +19,13 @@ services:
     command: >-
       sh -c "sleep 10 && mongosh -u fiapfood -p fiapfood --host mongodb:27017 --eval 'rs.initiate({
         \"_id\":\"rs0\",
-        "members":[
+        \"members\":[
           {
             \"_id\": 0,
-            \"host\":\"localhost:27017\",
+            \"host\":\"localhost:27017\"
           }
         ]
-      })' && if [ $(mongosh -u fiapfood -p fiapfood --quiet --host mongodb:27017 --eval 'rs.status().ok') -eq 1 ]; then exit 0; else exit 1; fi"
+      })' && if [ $$(mongosh -u fiapfood -p fiapfood --quiet --host mongodb:27017 --eval 'rs.status().ok') -eq 1 ]; then exit 0; else exit 1; fi"
   rabbitmq:
     image: fiapfood/rabbitmq:3-management-delayed
     build:
