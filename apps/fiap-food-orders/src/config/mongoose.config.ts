@@ -1,12 +1,12 @@
 import {
-    CommonModuleOptions,
-    InjectCommonModuleOptions,
+  CommonModuleOptions,
+  InjectCommonModuleOptions,
 } from '@fiap-food/setup';
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import {
-    MongooseModuleOptions,
-    MongooseOptionsFactory,
+  MongooseModuleOptions,
+  MongooseOptionsFactory,
 } from '@nestjs/mongoose';
 
 @Injectable()
@@ -40,26 +40,35 @@ export class MongooseConfig implements MongooseOptionsFactory {
         `MongooseConfig - MongoDB URI: ${uri.substring(0, 30)}...`,
       );
 
-      // Configurações robustas para produção
+      // Configurações otimizadas para ambiente Kubernetes
       const options: MongooseModuleOptions = {
         uri,
         appName,
-        // Configurações de timeout e retry para produção
-        serverSelectionTimeoutMS: 10000, // 10 segundos
-        socketTimeoutMS: 45000, // 45 segundos
-        connectTimeoutMS: 10000, // 10 segundos
-        maxPoolSize: 10, // Máximo de 10 conexões no pool
+        // Configurações de timeout mais agressivas para falha rápida
+        serverSelectionTimeoutMS: 5000, // 5 segundos para descobrir servidor
+        connectTimeoutMS: 5000, // 5 segundos para conectar
+        socketTimeoutMS: 30000, // 30 segundos para operações
+        heartbeatFrequencyMS: 5000, // Check de saúde a cada 5s
+        maxPoolSize: 5, // Pool menor para Kubernetes
+        minPoolSize: 1, // Manter pelo menos 1 conexão
         retryWrites: true,
         retryReads: true,
         // Buffer de comandos desabilitado para falhas rápidas
         bufferCommands: false,
-        // Log de conexão
+        // Configurações de rede otimizadas
         family: 4, // Use IPv4, skip trying IPv6
+        // Configurações de autenticação flexíveis
+        authSource: 'admin',
+        // Configurações de replica set
+        readPreference: 'primary',
+        // Configurações de timeout de aplicação
+        maxIdleTimeMS: 30000,
+        waitQueueTimeoutMS: 5000,
       };
 
       this.logger.log('MongooseConfig - Configuração criada com sucesso');
       this.logger.log(
-        `MongooseConfig - Configurações aplicadas: timeout=${options.serverSelectionTimeoutMS}ms, poolSize=${options.maxPoolSize}`,
+        `MongooseConfig - Configurações: timeout=${options.serverSelectionTimeoutMS}ms, pool=${options.maxPoolSize}`,
       );
 
       return options;
