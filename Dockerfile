@@ -12,6 +12,6 @@ ENV PORT=3000
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci --omit=dev && npm cache clean --force
-COPY --from=builder /app/dist/apps/${target}/* ./dist/
+COPY --from=builder /app/dist/apps/${target}/main.js ./main.js
 EXPOSE ${PORT}
-CMD ["node", "dist/main.js"]
+CMD ["node", "main.js"]
